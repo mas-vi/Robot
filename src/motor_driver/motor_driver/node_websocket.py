@@ -1,16 +1,25 @@
 from flask import Flask, render_template,request
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO
 import rclpy
+from rclpy.node import Node
 from std_msgs.msg import String
 
 app = Flask(__name__,template_folder="/home/vboxuser/ros2_ws/src/motor_driver/motor_driver/templates")
 socketio = SocketIO(app)
 
+class CommandPublisher(Node):
+    def __init__(self):
+        super().__init__("websocket_node")
+        self.publisher=self.create_publisher(
+            String,
+            'movement_command',
+            10)
+        
+    def publish(self,msg):
+        self.publisher.publish(msg)
 
 rclpy.init()
-node = rclpy.create_node('websocket_node')
-publisher = node.create_publisher(String, 'movement_command', 10)
-
+command_publisher=CommandPublisher()
 
 @app.route('/')
 def home():
@@ -26,7 +35,7 @@ def handle_movement_command(command):
     print('Received movement command:', command)
     msg = String()
     msg.data = command
-    publisher.publish(msg)
+    command_publisher.publish(msg)
 
 def main():
     socketio.run(app, host='0.0.0.0', port=5050)
@@ -35,5 +44,5 @@ if __name__ == '__main__':
     try:
         main()
     except KeyboardInterrupt:
-        node.destroy_node()
+        command_publisher.destroy_node()
         rclpy.shutdown()
