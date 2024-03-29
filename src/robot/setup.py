@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'motor_driver'
+package_name = 'robot'
 
 setup(
     name=package_name,
@@ -14,14 +14,15 @@ setup(
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='vboxuser',
-    maintainer_email='vboxuser@todo.todo',
+    maintainer_email='opreaionut035@gmail.com',
     description='TODO: Package description',
-    license='Apache-2.0',
+    license='Apace-2.0',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'node_driver = motor_driver.node_driver:main',
-            'node_websocket = motor_driver.node_websocket:main'
+            'motor_controller = robot.motor_controller:main',
+            'websocket=robot.websocket:main',
+            'image_publisher=robot.image_publisher:main'
         ],
     },
 )

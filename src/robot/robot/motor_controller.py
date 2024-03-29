@@ -2,9 +2,6 @@ import rclpy
 from std_msgs.msg import String
 from rclpy.node import Node
 
-left_motor_pins = (17, 18)
-right_motor_pins = (27, 22)
-
 class MotorController(Node):
     def __init__(self):
         super().__init__("motor_controller_node")
@@ -27,7 +24,6 @@ class MotorController(Node):
             print("Turn right")
 
 
-    
 def main(args=None):
     try:
         rclpy.init(args=args)

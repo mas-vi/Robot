@@ -4,7 +4,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
 
-app = Flask(__name__,template_folder="/home/vboxuser/ros2_ws/src/motor_driver/motor_driver/templates")
+app = Flask(__name__,template_folder="/home/vboxuser/ros2_ws/src/robot/robot/templates")
 socketio = SocketIO(app)
 
 class CommandPublisher(Node):
