@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="forward">Forward</button>
+</body>
+
+<script src="https://cdn.socket.io/4.1.3/socket.io.min.js"></script>
+
+<script>
+   var socket = io();
+   document.getElementById('forward').addEventListener('click',(e)=>{
+    socket.emit('movement_command','forward')
+})
+</script>
+</html>

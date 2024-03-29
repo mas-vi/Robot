@@ -1,0 +1,26 @@
+[0.663s] Invoking command in '/home/vboxuser/ros2_ws/src/motor_driver': PYTHONPATH=/home/vboxuser/ros2_ws/build/motor_driver/prefix_override:/home/vboxuser/ros2_ws/install/motor_driver/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/motor_driver build --build-base /home/vboxuser/ros2_ws/build/motor_driver/build install --record /home/vboxuser/ros2_ws/build/motor_driver/install.log --single-version-externally-managed install_data
+[0.945s] running egg_info
+[0.949s] writing ../../build/motor_driver/motor_driver.egg-info/PKG-INFO
+[0.949s] writing dependency_links to ../../build/motor_driver/motor_driver.egg-info/dependency_links.txt
+[0.949s] writing entry points to ../../build/motor_driver/motor_driver.egg-info/entry_points.txt
+[0.949s] writing requirements to ../../build/motor_driver/motor_driver.egg-info/requires.txt
+[0.949s] writing top-level names to ../../build/motor_driver/motor_driver.egg-info/top_level.txt
+[0.952s] reading manifest file '../../build/motor_driver/motor_driver.egg-info/SOURCES.txt'
+[0.952s] adding license file 'LICENSE'
+[0.953s] writing manifest file '../../build/motor_driver/motor_driver.egg-info/SOURCES.txt'
+[0.953s] running build
+[0.953s] running build_py
+[0.953s] copying motor_driver/node_websocket.py -> /home/vboxuser/ros2_ws/build/motor_driver/build/lib/motor_driver
+[0.953s] running install
+[0.954s] running install_lib
+[0.954s] copying /home/vboxuser/ros2_ws/build/motor_driver/build/lib/motor_driver/node_websocket.py -> /home/vboxuser/ros2_ws/install/motor_driver/lib/python3.10/site-packages/motor_driver
+[0.955s] byte-compiling /home/vboxuser/ros2_ws/install/motor_driver/lib/python3.10/site-packages/motor_driver/node_websocket.py to node_websocket.cpython-310.pyc
+[0.956s] running install_data
+[0.956s] running install_egg_info
+[0.958s] removing '/home/vboxuser/ros2_ws/install/motor_driver/lib/python3.10/site-packages/motor_driver-0.0.0-py3.10.egg-info' (and everything under it)
+[0.959s] Copying ../../build/motor_driver/motor_driver.egg-info to /home/vboxuser/ros2_ws/install/motor_driver/lib/python3.10/site-packages/motor_driver-0.0.0-py3.10.egg-info
+[0.960s] running install_scripts
+[0.984s] Installing node_driver script to /home/vboxuser/ros2_ws/install/motor_driver/lib/motor_driver
+[0.984s] Installing node_websocket script to /home/vboxuser/ros2_ws/install/motor_driver/lib/motor_driver
+[0.991s] writing list of installed files to '/home/vboxuser/ros2_ws/build/motor_driver/install.log'
+[1.021s] Invoked command in '/home/vboxuser/ros2_ws/src/motor_driver' returned '0': PYTHONPATH=/home/vboxuser/ros2_ws/build/motor_driver/prefix_override:/home/vboxuser/ros2_ws/install/motor_driver/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/motor_driver build --build-base /home/vboxuser/ros2_ws/build/motor_driver/build install --record /home/vboxuser/ros2_ws/build/motor_driver/install.log --single-version-externally-managed install_data
