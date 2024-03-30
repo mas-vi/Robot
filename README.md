@@ -15,6 +15,6 @@ To install and run this ROS2 project on your machine, follow these steps:
 3. **Run the Project**: Navigate into the cloned repository directory and execute the `run.sh` script:
 
     ```bash
-    cd ros2_ws
+    cd Robot
     ./run.sh
     ```
