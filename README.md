@@ -1,5 +1,20 @@
-# ROS2 project
+# ROS2 Project
 
 ## Installation
 
-Install ROS2 on your machine. Clone the repositor and use ./run.sh.
+To install and run this ROS2 project on your machine, follow these steps:
+
+1. **Install ROS2**: Ensure that ROS2 is installed on your machine. You can follow the installation instructions provided on the [ROS2 website](https://index.ros.org/doc/ros2/Installation/).
+
+2. **Clone the Repository**: Clone this repository to your local machine using Git:
+
+    ```bash
+    git clone <repository_url>
+    ```
+
+3. **Run the Project**: Navigate into the cloned repository directory and execute the `run.sh` script:
+
+    ```bash
+    cd <repository_directory>
+    ./run.sh
+    ```
