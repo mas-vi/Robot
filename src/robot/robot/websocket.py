@@ -38,7 +38,7 @@ def handle_movement_command(command):
     command_publisher.publish(msg)
 
 def main():
-    socketio.run(app, host='0.0.0.0', port=5050)
+    socketio.run(app, host='0.0.0.0', port=5050, allow_unsafe_werkzeug=True)
 
 if __name__ == '__main__':
     try:

@@ -1,0 +1,18 @@
+<launch>
+    <node
+        pkg="robot"
+        exec="motor_controller"
+        name="motor_controller"
+        output="screen"
+        launch-prefix="xterm -e"
+    />
+  
+     <node
+        pkg="robot"
+        exec="websocket"
+        name="websocket"
+        output="screen"
+        launch-prefix="xterm -e"
+   />
+   
+</launch>
