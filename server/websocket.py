@@ -58,7 +58,8 @@ def handle_movement_command(command):
     msg.data=command
     web_node.publish(msg)
     
-
+if __name__=='__main__':
+    socketio.run(app)
 
     
 
