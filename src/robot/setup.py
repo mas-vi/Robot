@@ -22,7 +22,6 @@ setup(
     entry_points={
         'console_scripts': [
             'motor_controller = robot.motor_controller:main',
-            'websocket=robot.websocket:main',
             'image_publisher=robot.image_publisher:main',
             'image_subscriber=robot.image_subscriber:main'
         ],

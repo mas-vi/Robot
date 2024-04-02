@@ -5,3 +5,5 @@ if [ ! -d  $(pwd)/install ];then
 fi
 source install/local_setup.bash 
 ros2 launch robot launch.xml
+
+

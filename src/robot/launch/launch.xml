@@ -7,20 +7,8 @@
         launch-prefix="xterm -e"
     />
   
-     <node
-        pkg="robot"
-        exec="websocket"
-        name="websocket"
-        output="screen"
-        launch-prefix="xterm -e"
-   />
-   <node
-        pkg="robot"
-        exec="image_publisher"
-        name="image_publisher"
-        output="screen"
-        launch-prefix="xterm -e"
-   />
+     
+   
    
    
 </launch>
