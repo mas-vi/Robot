@@ -1,3 +1,4 @@
+import logging
 from flask import Flask, render_template,request
 from flask_socketio import SocketIO
 from flask import Response
@@ -38,6 +39,7 @@ class WebNode(Node):
 rclpy.init()
 web_node=WebNode()
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -45,7 +47,7 @@ def index():
 @app.route('/video_feed')
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
-        
+     
 
 @socketio.on('connect')
 def handle_connect():
@@ -53,7 +55,7 @@ def handle_connect():
 
 @socketio.on('movement_command')
 def handle_movement_command(command):
-    print('Received movement command:', command)
+    print('Received command:',command)
     msg = String()
     msg.data=command
     web_node.publish(msg)
@@ -62,4 +64,3 @@ if __name__=='__main__':
     socketio.run(app)
 
     
-
