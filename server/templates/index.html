@@ -4,25 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.css') }}">
     <title>Document</title>
 </head>
 <body>
-    <div class="main">
-        <button id="forward">Forward</button>
+    
         <div class="container">
-            <img src="{{ url_for('video_feed') }}">
+            <div class="row">
+                <div class="col-12">
+                    <p id="sensor_data">
+
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12">
+                    <img src="{{ url_for('video_feed') }}" class="img-fluid img-class">
+                </div>
+                
+            </div>
+          
+        </div>
+    
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-12">
+                <button id="for-left" class="btn  btn-primary button-size">Forward Left</button>
+                <button id="forward" class="btn  button-size">Forward</button>
+                <button id="for-right" class="btn  button-size">Forward Right</button>
+            </div>
+            
+           
+           
+    </div>
+        <div class="row text-center">
+            <div class="col-12">
+                <button id="left"class="btn  button-size">Left</button>
+                <button id="stop" class="btn  button-size">Stop</button>
+                <button id="right" class="btn  button-size">Right</button>
+            </div>
+            
+            
+            
         </div>
     </div>
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-12">
+                <button id="backward" class="btn  button-size">Backward</button>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+    
     
 
 </body>
 
 <script src="https://cdn.socket.io/4.1.3/socket.io.min.js"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+    
 
-<script>
-    var socket = io();
-    document.getElementById('forward').addEventListener('click',(e)=>{
-    socket.emit('movement_command','forward')
-})
-</script>
 </html>

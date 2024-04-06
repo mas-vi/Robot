@@ -1,4 +1,3 @@
-import logging
 from flask import Flask, render_template,request
 from flask_socketio import SocketIO
 from flask import Response
@@ -6,6 +5,8 @@ from std_msgs.msg import String
 from rclpy.node import Node
 import cv2
 import rclpy
+from time import sleep
+import random
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -21,6 +22,7 @@ def gen_frames():
             resized_frame=cv2.resize(frame,(640,480))
             ret, buffer = cv2.imencode('.jpg', resized_frame)
             frame = buffer.tobytes()
+            sleep(0.0)
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
             
@@ -33,9 +35,7 @@ class WebNode(Node):
             'movement_command',
             10)
     def publish(self,msg):
-        self.publisher_cmd.publish(msg)
-
-
+        self.publisher_cmd.publish(msg)     
 rclpy.init()
 web_node=WebNode()
 
@@ -52,6 +52,14 @@ def video_feed():
 @socketio.on('connect')
 def handle_connect():
     print('Client connected')
+    socketio.emit('You are now connected')
+
+@socketio.on('sensor_data')
+def send_data():
+    temperature = random.uniform(20.0, 30.0)
+    humidity = random.uniform(40.0, 60.0)
+    sensor_data = f'Temperature: {temperature} °C, Humidity: {humidity} %'
+    socketio.emit('sensor_data', sensor_data)
 
 @socketio.on('movement_command')
 def handle_movement_command(command):
@@ -59,8 +67,9 @@ def handle_movement_command(command):
     msg = String()
     msg.data=command
     web_node.publish(msg)
-    
+
 if __name__=='__main__':
+   
     socketio.run(app)
 
     

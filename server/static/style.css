@@ -1,3 +1,10 @@
-.main{
-    width: 640px;
+.button-size{
+    width:6rem;
+    margin:0.4rem;
+    white-space:normal;
+}
+
+.img-class{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
