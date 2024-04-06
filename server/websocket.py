@@ -58,7 +58,7 @@ def handle_connect():
 def send_data():
     temperature = random.uniform(20.0, 30.0)
     humidity = random.uniform(40.0, 60.0)
-    sensor_data = f'Temperature: {temperature} °C, Humidity: {humidity} %'
+    sensor_data = f'Temperature: {"%.2f" %temperature} °C, Humidity: {"%.2f" %humidity} %'
     socketio.emit('sensor_data', sensor_data)
 
 @socketio.on('movement_command')
