@@ -96,7 +96,7 @@ class MotorController(Node):
             with lock:
                 while not queue.empty():
                     queue.get()
-
+                
         elif command == "right":
             with lock:
                 queue.put('right')
@@ -114,7 +114,7 @@ def send_command():
     with lock:
         if(not queue.empty()):
             command=queue.get()
-            
+            robot.command(command)
 
 
     with lock:
