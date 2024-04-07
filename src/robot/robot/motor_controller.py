@@ -4,11 +4,65 @@ from rclpy.node import Node
 from queue import Queue
 import threading
 from time import sleep
+import RPi.GPIO as GPIO
 vel = 0
 prev_vel=0
 queue = Queue()
 lock = threading.Lock()  
 
+class Motors():
+    def __init__(self,en,in1,in2):
+        self.en=en
+        self.in1=in1
+        self.in2=in2
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setmode(self.en,GPIO.OUTPUT)
+        GPIO.setmode(self.in1,GPIO.OUTPUT)
+        GPIO.setmode(self.in2,GPIO.OUTPUT)
+        self.pwm=GPIO.PWM(en,1000)
+        self.pwm.start(0)
+        GPIO.output(self.in1,GPIO.LOW)
+        GPIO.output(self.in1,GPIO.LOW)
+    def move(self,vel):
+        if vel<0:
+            GPIO.output(self.in1,GPIO.LOW)
+            GPIO.output(self.in1,GPIO.HIGH)
+        if vel==0:
+            GPIO.output(self.in1,GPIO.LOW)
+            GPIO.output(self.in1,GPIO.LOW)
+        else :
+            GPIO.output(self.in1,GPIO.HIGH)
+            GPIO.output(self.in1,GPIO.LOW)
+        self.pwm.ChangeDutyCycle(abs(vel))
+
+class Robot():
+    def __init__(self,en1,in1,in2,en2,in3,in4):
+        self.motors_left=Motors(en1,in1,in2)
+        self.motors_right=Motors(en2,in3,in4)
+    def move(self,vel):
+        self.motors_left.move(vel)
+        self.motors_right.move(vel)
+    def command(self,command):
+        match(command):
+                case 'for-left':
+                    print(command)
+                    sleep(1)
+                    print('Executed ', command,' success')
+                case 'for-right':
+                    print(command)
+                    sleep(1)
+                    print('Executed ', command,' success')
+                case 'left':
+                    print(command)
+                    sleep(1)
+                    print('Executed ', command,' success')
+                case 'right':
+                    print(command)
+                    sleep(1)
+                    print('Executed ', command,' success')
+    
+
+robot=Robot(0,0,0,0,0,0)
 
 class MotorController(Node):
     def __init__(self):
@@ -60,28 +114,13 @@ def send_command():
     with lock:
         if(not queue.empty()):
             command=queue.get()
-            match(command):
-                case 'for-left':
-                    print(command)
-                    sleep(1)
-                    print('Executed ', command,' success')
-                case 'for-right':
-                    print(command)
-                    sleep(1)
-                    print('Executed ', command,' success')
-                case 'left':
-                    print(command)
-                    sleep(1)
-                    print('Executed ', command,' success')
-                case 'right':
-                    print(command)
-                    sleep(1)
-                    print('Executed ', command,' success')
+            
 
 
     with lock:
         if prev_vel!=vel:
             prev_vel=vel
+            robot.move(prev_vel)
         print(prev_vel)
     
 
@@ -98,7 +137,7 @@ def main(args=None):
     finally:
         motor_controller.destroy_node()
         rclpy.shutdown()
-
+        
 
 if __name__ == '__main__':
     main()

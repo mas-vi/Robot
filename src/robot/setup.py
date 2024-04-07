@@ -23,7 +23,8 @@ setup(
         'console_scripts': [
             'motor_controller = robot.motor_controller:main',
             'image_publisher=robot.image_publisher:main',
-            'image_subscriber=robot.image_subscriber:main'
+            'image_subscriber=robot.image_subscriber:main',
+            'dht11_publisher=robot.dht11_publisher:main'
         ],
     },
 )

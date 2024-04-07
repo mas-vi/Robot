@@ -24,8 +24,9 @@ var socket = io();
         socket.emit('sensor_data');
     }, 500) 
     socket.on('sensor_data', (data) => {
-            document.getElementById('sensor_data').innerText = data;
-            console.log("Received data:"+data)
+         
+        document.getElementById('sensor_data').innerText = data;
+        console.log("Received data: " + data);
 
     });
     socket.on('connect',(data)=>{

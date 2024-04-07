@@ -1,17 +1,20 @@
-from flask import Flask, render_template,request
+from multiprocessing import Process
+from flask import Flask, render_template, request, Response
 from flask_socketio import SocketIO
-from flask import Response
 from std_msgs.msg import String
 from rclpy.node import Node
 import cv2
 import rclpy
 from time import sleep
 import random
-
+import board
+import adafruit_dht
 app = Flask(__name__)
 socketio = SocketIO(app)
-
+# sensor=adafruit_dht.DHT11(board.D4)
 camera = cv2.VideoCapture(0)
+
+
 
 def gen_frames():  
     while True:
@@ -19,26 +22,28 @@ def gen_frames():
         if not success:
             break
         else:
-            resized_frame=cv2.resize(frame,(640,480))
+            resized_frame = cv2.resize(frame, (640, 480))
             ret, buffer = cv2.imencode('.jpg', resized_frame)
             frame = buffer.tobytes()
             sleep(0.0)
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-            
 
 class WebNode(Node):
     def __init__(self):
         super().__init__("websocket_node")
-        self.publisher_cmd=self.create_publisher(
+        self.publisher_cmd = self.create_publisher(
             String,
             'movement_command',
-            10)
-    def publish(self,msg):
+            10
+        )
+    def publish(self, msg):
         self.publisher_cmd.publish(msg)     
-rclpy.init()
-web_node=WebNode()
 
+    
+
+rclpy.init()
+web_node = WebNode()
 
 @app.route('/')
 def index():
@@ -47,15 +52,16 @@ def index():
 @app.route('/video_feed')
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
-     
 
 @socketio.on('connect')
 def handle_connect():
     print('Client connected')
-    socketio.emit('You are now connected')
+    socketio.emit('connect', 'You are now connected')
 
 @socketio.on('sensor_data')
 def send_data():
+    # temperature=sensor.temperature
+    # humidity=sensor.humidity
     temperature = random.uniform(20.0, 30.0)
     humidity = random.uniform(40.0, 60.0)
     sensor_data = f'Temperature: {"%.2f" %temperature} °C, Humidity: {"%.2f" %humidity} %'
@@ -63,13 +69,16 @@ def send_data():
 
 @socketio.on('movement_command')
 def handle_movement_command(command):
-    print('Received command:',command)
+    print('Received command:', command)
     msg = String()
-    msg.data=command
+    msg.data = command
     web_node.publish(msg)
 
+   
 if __name__=='__main__':
    
     socketio.run(app)
-
+    web_node.destroy_node()
+    rclpy.shutdown()
+    # sensor.exit()
     
