@@ -17,7 +17,7 @@ setup(
     maintainer='vboxuser',
     maintainer_email='opreaionut035@gmail.com',
     description='TODO: Package description',
-    license='Apace-2.0',
+    license='Apache-2.0',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
