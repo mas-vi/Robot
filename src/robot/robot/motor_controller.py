@@ -15,27 +15,25 @@ class Motors():
         self.en=en
         self.in1=in1
         self.in2=in2
-        GPIO.setmode(GPIO.BCM)
+        GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.en,GPIO.OUT)
         GPIO.setup(self.in1,GPIO.OUT)
         GPIO.setup(self.in2,GPIO.OUT)
         self.pwm=GPIO.PWM(en,1000)
         self.pwm.start(0)
         GPIO.output(self.in1,GPIO.LOW)
-        GPIO.output(self.in1,GPIO.LOW)
+        GPIO.output(self.in2,GPIO.LOW)
     def move(self,vel):
         if vel<0:
-            GPIO.output(self.in1,GPIO.LOW)
-            GPIO.output(self.in2,GPIO.HIGH)
+            GPIO.output(self.in1,GPIO.HIGH)
+            GPIO.output(self.in2,GPIO.LOW)
         elif vel==0:
             GPIO.output(self.in1,GPIO.LOW)
             GPIO.output(self.in2,GPIO.LOW)
         else :
-            GPIO.output(self.in1,GPIO.HIGH)
-            GPIO.output(self.in2,GPIO.LOW)
-        if vel>-50 and vel <50:
-             self.pwm.ChangeDutyCycle(100)
-             sleep(1)
+            GPIO.output(self.in1,GPIO.LOW)
+            GPIO.output(self.in2,GPIO.HIGH)
+
         self.pwm.ChangeDutyCycle(vel)
 
 class Robot():
