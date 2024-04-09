@@ -25,16 +25,16 @@ class Motors():
         GPIO.output(self.in2,GPIO.LOW)
     def move(self,vel):
         if vel<0:
-            GPIO.output(self.in1,GPIO.HIGH)
-            GPIO.output(self.in2,GPIO.LOW)
+            GPIO.output(self.in1,GPIO.LOW)
+            GPIO.output(self.in2,GPIO.HIGH)
         elif vel==0:
             GPIO.output(self.in1,GPIO.LOW)
             GPIO.output(self.in2,GPIO.LOW)
         else :
-            GPIO.output(self.in1,GPIO.LOW)
-            GPIO.output(self.in2,GPIO.HIGH)
+            GPIO.output(self.in1,GPIO.HIGH)
+            GPIO.output(self.in2,GPIO.LOW)
 
-        self.pwm.ChangeDutyCycle(vel)
+        self.pwm.ChangeDutyCycle(abs(vel))
 
 class Robot():
     def __init__(self,en1,in1,in2,en2,in3,in4):
