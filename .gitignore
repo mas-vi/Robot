@@ -8,3 +8,4 @@ ament_cmake_packages*
 build
 install
 log
+virtual/
