@@ -16,9 +16,9 @@ class Motors():
         self.in1=in1
         self.in2=in2
         GPIO.setmode(GPIO.BCM)
-        GPIO.setmode(self.en,GPIO.OUTPUT)
-        GPIO.setmode(self.in1,GPIO.OUTPUT)
-        GPIO.setmode(self.in2,GPIO.OUTPUT)
+        GPIO.setup(self.en,GPIO.OUT)
+        GPIO.setup(self.in1,GPIO.OUT)
+        GPIO.setup(self.in2,GPIO.OUT)
         self.pwm=GPIO.PWM(en,1000)
         self.pwm.start(0)
         GPIO.output(self.in1,GPIO.LOW)
@@ -27,13 +27,16 @@ class Motors():
         if vel<0:
             GPIO.output(self.in1,GPIO.LOW)
             GPIO.output(self.in2,GPIO.HIGH)
-        if vel==0:
+        elif vel==0:
             GPIO.output(self.in1,GPIO.LOW)
             GPIO.output(self.in2,GPIO.LOW)
         else :
             GPIO.output(self.in1,GPIO.HIGH)
             GPIO.output(self.in2,GPIO.LOW)
-        self.pwm.ChangeDutyCycle(abs(vel))
+        if vel>-50 and vel <50:
+             self.pwm.ChangeDutyCycle(100)
+             sleep(1)
+        self.pwm.ChangeDutyCycle(vel)
 
 class Robot():
     def __init__(self,en1,in1,in2,en2,in3,in4):
@@ -62,7 +65,7 @@ class Robot():
                     print('Executed ', command,' success')
     
 
-robot=Robot(0,0,0,0,0,0)
+robot=Robot(3,5,7,11,13,15)
 
 class MotorController(Node):
     def __init__(self):
