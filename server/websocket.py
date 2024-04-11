@@ -7,11 +7,10 @@ import cv2
 import rclpy
 from time import sleep
 import random
-#import board
-#import adafruit_dht
+import Adafruit_DHT
 app = Flask(__name__)
 socketio = SocketIO(app)
-# sensor=adafruit_dht.DHT11(board.D4)
+#sensor=Adafruit_DHT.DHT11
 camera = cv2.VideoCapture(0)
 
 
@@ -60,12 +59,16 @@ def handle_connect():
 
 @socketio.on('sensor_data')
 def send_data():
-    # temperature=sensor.temperature
-    # humidity=sensor.humidity
+    #temperature=sensor.temperature
+    #humidity=sensor.humidity
+    
+    #temperature, humidity = Adafruit_DHT.read_retry(sensor, 4)
+
     temperature = random.uniform(20.0, 30.0)
     humidity = random.uniform(40.0, 60.0)
     sensor_data = f'Temperature: {"%.2f" %temperature} °C, Humidity: {"%.2f" %humidity} %'
     socketio.emit('sensor_data', sensor_data)
+    print(sensor_data)
 
 @socketio.on('movement_command')
 def handle_movement_command(command):
@@ -80,5 +83,5 @@ if __name__=='__main__':
     socketio.run(app)
     web_node.destroy_node()
     rclpy.shutdown()
-    # sensor.exit()
+    #sensor.exit()
     
