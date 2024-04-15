@@ -1,6 +1,2 @@
 cd server
-export FLASK_APP=websocket
-export FLASK_RUN_HOST=0.0.0.0
-export FLASK_RUN_PORT=5000
-
-flask run
+gunicorn -w 1 -t 100 --worker-class eventlet -b 0.0.0.0 websocket:app
