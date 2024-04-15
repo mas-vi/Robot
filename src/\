@@ -44,36 +44,22 @@ class Robot():
         self.motors_left.move(vel)
         self.motors_right.move(vel)
     def command(self,command):
-        global vel
         match(command):
                 case 'for-left':
                     print(command)
-                    self.motors_left.move(-70)
-                    self.motors_right.move(70)
-                    sleep(0.075)
-                    self.move(vel)
+                    sleep(1)
                     print('Executed ', command,' success')
                 case 'for-right':
                     print(command)
-                    self.motors_left.move(70)
-                    self.motors_right.move(-70)
-                    sleep(0.075)
-                    self.move(vel)
+                    sleep(1)
                     print('Executed ', command,' success')
                 case 'left':
-                    self.motors_left.move(-70)
-                    self.motors_right.move(70)
-                    sleep(0.45)
-                    self.move(0)
-                    vel=0
-                    
+                    print(command)
+                    sleep(1)
                     print('Executed ', command,' success')
                 case 'right':
-                    self.motors_left.move(70)
-                    self.motors_right.move(-70)
-                    sleep(0.45)
-                    self.move(0)
-                    vel=0
+                    print(command)
+                    sleep(1)
                     print('Executed ', command,' success')
     
 
