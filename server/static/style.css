@@ -1,4 +1,9 @@
 
+#sensor_data {
+    color: black;
+    padding-top: 2%;
+}
+
 .button-size{
     width:6rem;
     margin:0.4rem;
@@ -7,9 +12,32 @@
 
 .img-class{
     margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;    
 }
 
-.container{
-    
+.container {
+    /*background-color: black;*/
 }
+
+.icon {
+    font-weight: bolder;
+    font-size: xx-large;
+    text-align: center;
+}
+
+.button {
+    width: 25%;
+    padding-top: 2%;
+    padding-bottom: 1%;
+    margin-left: 1%;
+    margin-right: 1%;    
+    margin-top: 1%;
+    margin-bottom: 1%;
+    border-radius: 20%;
+    box-shadow: black;
+}
+
+.full{
+    background-color: black;
+}
+

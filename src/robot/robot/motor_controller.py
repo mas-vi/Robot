@@ -14,12 +14,16 @@ chip = gpiod.Chip("gpiochip4")
 
 class Motors():
     def __init__(self,en,in1,in2):
+        
         self.en=en
         self.in1=in1
         self.in2=in2
         self.en_line = chip.get_line(self.en)
         self.in1_line = chip.get_line(self.in1)
         self.in2_line = chip.get_line(self.in2)
+        self.en_line.request(consumer="motor_control", type=gpiod.LINE_REQ_DIR_OUT)
+        self.in1_line.request(consumer="motor_control", type=gpiod.LINE_REQ_DIR_OUT)
+        self.in2_line.request(consumer="motor_control", type=gpiod.LINE_REQ_DIR_OUT)
     def move(self,vel):
         if vel<0:
             self.in1_line.set_value(0)
@@ -30,8 +34,8 @@ class Motors():
         else :
             self.in1_line.set_value(1)
             self.in2_line.set_value(0)
-        self.en_line.set_value(abs(vel))
-
+        self.en_line.set_value(vel)
+    
 class Robot():
     def __init__(self,en1,in1,in2,en2,in3,in4):
         self.motors_left=Motors(en1,in1,in2)
@@ -90,8 +94,8 @@ class MotorController(Node):
         global vel 
         command = msg.data
         if command == "forward":
-            if vel < 100:
-                vel += 25
+            if vel < 20:
+                vel += 5
 
         elif command == "for-left":
             with lock:  
@@ -112,8 +116,8 @@ class MotorController(Node):
             with lock:
                 queue.put('right')
         elif command == "backward":
-            if vel > -100:
-                vel -= 25
+            if vel > -20:
+                vel -= 5
 
        
         threading.Thread(target=send_command).start()

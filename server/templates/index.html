@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.css') }}">
-    <title>Document</title>
+    <title>Rescue Robot</title>
 </head>
 <body>
     
         <div class="container">
             <div class="row text-center">
                 <div class="col-12">
-                    <p id="sensor_data">
+                    <p id="sensor_data" alt=""> 
 
                     </p>
                 </div>
@@ -28,40 +28,32 @@
           
         </div>
     
-    <div class="container">
+    <div class="container buttons">
         <div class="row text-center">
             <div class="col-12">
-                <button id="for-left" class="btn button-size">Forward Left</button>
-                <button id="forward" class="btn button-size">Forward</button>
-                <button id="for-right" class="btn button-size">Forward Right</button>
+                <button id="for-left" class="button"><p class="icon text">↶</p></button>
+                <button id="forward" class="button"><p class="icon text">↟</p></button>
+                <button id="for-right" class="button"><p class="icon text"  >↷</p></button>
             </div>
-            
-           
-           
-    </div>
-        <div class="row text-center">
-            <div class="col-12">
-                <button id="left"class="btn  button-size">Left</button>
-                <button id="stop" class="btn  button-size">Stop</button>
-                <button id="right" class="btn  button-size">Right</button>
-            </div>
-            
-            
-            
         </div>
-    </div>
-    <div class="container">
+
         <div class="row text-center">
             <div class="col-12">
-                <button id="backward" class="btn  button-size">Backward</button>
+                <button id="left"class="button"><p class="icon text">↞</p></button>
+                <button id="stop" class="button"><p class="icon text">⌤</p></button>
+                <button id="right" class="button"><p class="icon text">↠</p></button>
+            </div>
+        </div>
+
+        <div class="row text-center">
+            <div class="col-12">
+                <button id="backward" class="button"><p class="icon text">↡</p></button>
             </div>
             
         </div>
     </div>
     
-    
-    
-    
+
 
 </body>
 
