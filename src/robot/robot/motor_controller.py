@@ -4,37 +4,33 @@ from rclpy.node import Node
 from queue import Queue
 import threading
 from time import sleep
-import RPi.GPIO as GPIO
+import gpiod
 vel = 0
 prev_vel=0
 queue = Queue()
 lock = threading.Lock()  
+chip = gpiod.Chip("gpiochip4")
+
 
 class Motors():
     def __init__(self,en,in1,in2):
         self.en=en
         self.in1=in1
         self.in2=in2
-        GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(self.en,GPIO.OUT)
-        GPIO.setup(self.in1,GPIO.OUT)
-        GPIO.setup(self.in2,GPIO.OUT)
-        self.pwm=GPIO.PWM(en,1000)
-        self.pwm.start(0)
-        GPIO.output(self.in1,GPIO.LOW)
-        GPIO.output(self.in2,GPIO.LOW)
+        self.en_line = chip.get_line(self.en)
+        self.in1_line = chip.get_line(self.in1)
+        self.in2_line = chip.get_line(self.in2)
     def move(self,vel):
         if vel<0:
-            GPIO.output(self.in1,GPIO.LOW)
-            GPIO.output(self.in2,GPIO.HIGH)
+            self.in1_line.set_value(0)
+            self.in2_line.set_value(1)
         elif vel==0:
-            GPIO.output(self.in1,GPIO.LOW)
-            GPIO.output(self.in2,GPIO.LOW)
+            self.in1_line.set_value(0)
+            self.in2_line.set_value(0)
         else :
-            GPIO.output(self.in1,GPIO.HIGH)
-            GPIO.output(self.in2,GPIO.LOW)
-
-        self.pwm.ChangeDutyCycle(abs(vel))
+            self.in1_line.set_value(1)
+            self.in2_line.set_value(0)
+        self.en_line.set_value(abs(vel))
 
 class Robot():
     def __init__(self,en1,in1,in2,en2,in3,in4):
@@ -77,7 +73,7 @@ class Robot():
                     print('Executed ', command,' success')
     
 
-robot=Robot(22,24,26,11,13,15)
+robot=Robot(14,15,18,10,9,11)
 
 class MotorController(Node):
     def __init__(self):

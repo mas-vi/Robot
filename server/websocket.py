@@ -2,15 +2,15 @@ from multiprocessing import Process
 from flask import Flask, render_template, request, Response
 from flask_socketio import SocketIO
 from std_msgs.msg import String
+import rclpy
 from rclpy.node import Node
 import cv2
-import rclpy
 from time import sleep
 import random
-import Adafruit_DHT
+#import Adafruit_DHT
 app = Flask(__name__)
 socketio = SocketIO(app)
-DHT_SENSOR=Adafruit_DHT.DHT22
+#DHT_SENSOR=Adafruit_DHT.DHT22
 DHT_PIN = 4
 camera = cv2.VideoCapture(0)
 
@@ -61,10 +61,10 @@ def handle_connect():
 @socketio.on('sensor_data')
 def send_data():
     
-    humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_PIN)
+    #humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_PIN)
 
-    #temperature = random.uniform(20.0, 30.0)
-    #humidity = random.uniform(40.0, 60.0)
+    temperature = random.uniform(20.0, 30.0)
+    humidity = random.uniform(40.0, 60.0)
     sensor_data = f'Temperature: {"%.2f" %temperature} °C, Humidity: {"%.2f" %humidity} %'
     socketio.emit('sensor_data', sensor_data)
 
@@ -81,5 +81,5 @@ if __name__=='__main__':
     socketio.run(app)
     web_node.destroy_node()
     rclpy.shutdown()
-    sensor.exit()
+    #sensor.exit()
     
