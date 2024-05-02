@@ -1,19 +1,15 @@
 from multiprocessing import Process
-from flask import Flask, render_template, request, Response
+from flask import Flask, render_template, request, Response, redirect
 from flask_socketio import SocketIO
-from std_msgs.msg import String
-import rclpy
-from rclpy.node import Node
+from serial import Serial
 import cv2
 from time import sleep
 import random
-#import Adafruit_DHT
 app = Flask(__name__)
 socketio = SocketIO(app)
-#DHT_SENSOR=Adafruit_DHT.DHT22
-DHT_PIN = 4
 camera = cv2.VideoCapture(0)
-
+arduino = Serial('/dev/ttyACM0', 9600)
+arduino.timeout = 1
 
 
 def gen_frames():  
@@ -29,21 +25,8 @@ def gen_frames():
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
-class WebNode(Node):
-    def __init__(self):
-        super().__init__("websocket_node")
-        self.publisher_cmd = self.create_publisher(
-            String,
-            'movement_command',
-            10
-        )
-    def publish(self, msg):
-        self.publisher_cmd.publish(msg)     
+   
 
-    
-
-rclpy.init()
-web_node = WebNode()
 
 @app.route('/')
 def index():
@@ -61,25 +44,20 @@ def handle_connect():
 @socketio.on('sensor_data')
 def send_data():
     
-    #humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_PIN)
+    sensor_data = arduino.readline()
+    decoded = sensor_data[0:len(sensor_data)].decode("utf-8")
+    socketio.emit('sensor_data', decoded)
 
-    temperature = random.uniform(20.0, 30.0)
-    humidity = random.uniform(40.0, 60.0)
-    sensor_data = f'Temperature: {"%.2f" %temperature} °C, Humidity: {"%.2f" %humidity} %'
-    socketio.emit('sensor_data', sensor_data)
 
 @socketio.on('movement_command')
 def handle_movement_command(command):
     print('Received command:', command)
-    msg = String()
-    msg.data = command
-    web_node.publish(msg)
+    
+    arduino.write(str(command).encode())
+
 
    
 if __name__=='__main__':
    
     socketio.run(app)
-    web_node.destroy_node()
-    rclpy.shutdown()
-    #sensor.exit()
     
