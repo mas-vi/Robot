@@ -22,7 +22,7 @@ var socket = io();
 })
     setInterval(function() {
         socket.emit('sensor_data');
-    }, 1000) 
+    }, 500) 
     socket.on('sensor_data', (data) => {
          
         document.getElementById('sensor_data').innerText = data;

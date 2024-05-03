@@ -8,7 +8,7 @@ import random
 app = Flask(__name__)
 socketio = SocketIO(app)
 camera = cv2.VideoCapture(0)
-arduino = Serial('/dev/ttyACM0', 9600)
+arduino = Serial('/dev/ttyACM0', 115200)
 arduino.timeout = 1
 
 
