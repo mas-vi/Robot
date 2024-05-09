@@ -1,3 +1,4 @@
+
 #include <DHT.h>
 
 //Constants
@@ -40,7 +41,6 @@ void setup() {
   dht.begin();
 
 }
-
 
 
 int speed = 0;
@@ -250,14 +250,14 @@ void run_motors() {
 int i = 0;
 
 void sensor() {
-  if(i == 600000) {
+  if(i == 400000) {
     //Read data and store it to variables hum and temp
     hum = dht.readHumidity();
     temp= dht.readTemperature();
     //Print temp and humidity values to serial monitor
     Serial.print("Humidity: ");
     Serial.print(hum);
-    Serial.print(" %, Temp: ");
+    Serial.print(" %, Temperature: ");
     Serial.print(temp);
     Serial.println(" Celsius");
     //delay(2000); //Delay 2 sec.
@@ -266,6 +266,7 @@ void sensor() {
   }
   i++;
 }
+
 
 
 
